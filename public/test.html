@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgABjAEAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAS8AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAcYCAAGTAgABPgIAAZoCAAHKAgABygIAAacCAAFQAQAACwAAAAACAAGCAgABtQAAAAAAAAAAAAAAAAIAAW0CAAH7AgAB/wIAAf0CAAH/AgAB/wIAAf8CAAH/AgAB/wIAAfsCAAFLAAAAAAIAAckCAAHkAQABUwIAAVkCAAHwAgAB/wIAAf8CAAH/AgAB/wIAAf8CAAH/AgAB/wIAAf8CAAHhAgAB7wAAAAACAAFFAgAB/wIAAf8CAAH/AgAB/wIAAf8CAAH/AgAB/wIAAf8CAAH/AgAB/wIAAf8CAAH/AgABuAIAAXUAAAAAAgABpQIAAcABAAF2AQABfQIAAbgCAAHbAgAB/wIAAf8CAAH/AgAB/wIAAf8CAAH5AgABvQEAAS4AAAAAAQAANQIAAXMAAAAAAAAAAAAAAAAAAAAAAQABEQIAAeACAAH6AgAB5gIAAbUCAAFpAgABBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAH3AgABbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAE+AgABaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AAD//wAA//8AAP3/AAD8hwAAPAEAAJgAAADAAQAAmAMAAP4fAAD+/wAA//8AAP//AAD//wAA//8AAA==" rel="icon" type="image/x-icon" />
+	<link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title>Eat-Da-Burger!</title>
+</head>
+<body>
+
+	<nav class="navbar navbar-default">
+	  	<div class="container-fluid">
+	  	  	<div class="navbar-header">
+	  	  	  	<a class="navbar-brand" href="#">
+	  	  	  	  	<img alt="Eat-Da-Burger" src="...">
+	  	  	  	</a>
+	  	  	</div>
+	  	</div>
+	</nav>
+
+	<div class="row">
+		<div class="col-sm-1">
+		</div>
+		<div class="col-sm-10">
+			<div class="jumbotron text-center">
+				<h1>Eat-Da-Burger!</h1>
+			</div>
+		</div>
+		<div class="col-sm-1">
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row text-center">
+			<h2>Add a Burger</h2>
+			<form class="create-update-form" action="/" method="POST">
+
+			  <div class="form-group">
+			    <label for="ca">Burger Name:</label>
+			    <input type="text" id="ca" name="name">
+			  </div>
+			  <button class="btn btn-default" type="submit">Add Burger</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+
+			<div class="col-sm-6">
+				<h2>Burgers</h2>
+				<ol>
+				  {{#each burgers}}
+				    {{#unless this.devoured}}
+				      <li>
+				        {{this.name}}
+
+				        <form action="/{{this.id}}?_method=PUT" method="POST">
+				          <input type="hidden" name="devoured" value="true">
+				          <button class="btn btn-default" type="submit">Devour!</button>
+				        </form>
+
+				        {{> burgers/delete-burger}}
+				      </li>
+				    {{/unless}}
+				  {{/each}}
+				</ol>
+			</div>
+
+			<div class="col-sm-6">
+				<h2>Devoured</h2>
+				<ol>
+				  {{#each burgers}}
+				    {{#if this.devoured}}
+				      <li>
+				        {{this.name}}
+
+				        <form action="/{{this.id}}?_method=PUT" method="POST">
+				          <input type="hidden" name="devoured" value="false">
+				          <button class="btn btn-default" type="submit">Eat Again!</button>
+				        </form>
+
+				        {{> burgers/delete-burger}}
+				      </li>
+				    {{/if}}
+				  {{/each}}
+				</ol>
+			</div>
+
+		</div>
+	</div>
+
+	
+
+</body>
+</html>
